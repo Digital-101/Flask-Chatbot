@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Chatbot App</title>
+</head>
+<body>
+    <div class="layout-container">
+        <!-- Left column with content -->
+        <div class="left-column">
+            <h1>Welcome to Our Chatbot!</h1>
+            <p>
+                This is your friendly virtual assistant. Here are some things you can ask about:
+            </p>
+            <ul>
+                <li>Joke</li>
+                <li>Time</li>
+                <li>favorite</li>
+                <li>Motivation</li>
+                <li>Fun facts</li>
+                <li>Story</li>
+                <li>Basic conversation</li>
+            </ul>
+            <p>
+                Feel free to interact with the chatbot on the right side of the screen. 
+                It's available 24/7 to help answer your questions or just chat with you.
+            </p>
+            <p>
+                Below are some tips for better interaction:
+            </p>
+            <ul>
+                <li>Be clear with your questions.</li>
+                <li>Ask one thing at a time for better answers.</li>
+                <li>Try different phrasings if you don't get the answer you're looking for.</li>
+            </ul>
+            <p style="color: blue;">We still working on this bot.....</p>
+        </div>
+
+        <!-- Chatbot container placed at the right -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Chatbot</h2>
+            </div>
+            <div id="chat-window" class="chat-window"></div>
+            <div class="chat-input-container">
+                <input type="text" id="user-input" placeholder="Type your message..." />
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('send-btn').onclick = function() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput) {
+                appendMessage('You', userInput, 'user-message');
+                document.getElementById('user-input').value = '';
+
+                fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `message=${encodeURIComponent(userInput)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    appendMessage('Chatbot', data.response, 'chatbot-message');
+                });
+            }
+        };
+
+        function appendMessage(sender, message, messageClass) {
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.innerHTML += `
+                <p class="message ${messageClass}">
+                    <strong>${sender}:</strong> ${message}
+                </p>
+                <div class="clear"></div>
+            `;
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        document.getElementById('user-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('send-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>
