@@ -4,7 +4,9 @@
         height: 100vh;
         font-family: Arial, sans-serif;
     }
-
+    ul{
+        list-style-type: square;
+    }
     /* Left column for additional content */
     .left-column {
         width: 70%;
