@@ -34,7 +34,7 @@ responses = {
     "thank you": [
         "You're welcome!", "No problem!", "Happy to help!", "Anytime!", 
         "Glad I could assist!", "You're very welcome!", "My pleasure!", 
-        "It's what I'm here for!"
+        "It's what I'm here for!","Awesome take care"
     ],
     "what is your name?": [
         "I'm an AI, but you can call me ChatBot!", "I go by ChatBot, nice to meet you!", 
@@ -143,7 +143,7 @@ def get_response(user_input):
         return random.choice(responses["motivation"])
     
     # Asking about favorite food
-    elif "favorite" in processed_input and "food" in processed_input:
+    elif "favorite" in processed_input and "food" in processed_input and "eat" in processed_input:
         return random.choice(responses["favorite food?"])
     
     # Asking about time
