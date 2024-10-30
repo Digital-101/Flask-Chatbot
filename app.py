@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, jsonify
 import random
 import nltk
 from nltk.stem import WordNetLemmatizer
+import time
+
+tm = time.localtime()
+ts = f"The time is {tm.tm_hour}:{tm.tm_min}"
 
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -34,7 +38,7 @@ responses = {
     "thank you": [
         "You're welcome!", "No problem!", "Happy to help!", "Anytime!", 
         "Glad I could assist!", "You're very welcome!", "My pleasure!", 
-        "It's what I'm here for!","Awesome take care"
+        "It's what I'm here for!"
     ],
     "what is your name?": [
         "I'm an AI, but you can call me ChatBot!", "I go by ChatBot, nice to meet you!", 
@@ -86,10 +90,10 @@ responses = {
         "I think I'd enjoy something classic, like spaghetti!", 
         "I don't eat, but I can suggest great recipes if you want!"
     ],
-    "what time is it?": [
-        "I can't check the time for you, but I'm sure it's the perfect time to be productive!", 
-        "Time is just an illusion... but I can help with your tasks anytime!", 
-        "I might not know the current time, but it’s always a good time for a chat!"
+    "what time is it?": [ts
+        # "I can't check the time for you, but I'm sure it's the perfect time to be productive!", 
+        # "Time is just an illusion... but I can help with your tasks anytime!", 
+        # "I might not know the current time, but it’s always a good time for a chat!"
     ],
     "tell me a story": [
         "Once upon a time, there was a curious learner who loved asking questions, and their AI friend always had fun answers. The end!", 
@@ -143,7 +147,7 @@ def get_response(user_input):
         return random.choice(responses["motivation"])
     
     # Asking about favorite food
-    elif "favorite" in processed_input and "food" in processed_input and "eat" in processed_input:
+    elif "favorite" in processed_input and "food" in processed_input:
         return random.choice(responses["favorite food?"])
     
     # Asking about time
