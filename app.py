@@ -66,8 +66,8 @@ responses = {
         "What did the router say when it was reset? 'I'm feeling reconnected!'"
     ],
 
-
     "fun fact": [
+        "A sheep was the first animal to be cloned :)",
         "Did you know octopuses have three hearts?", 
         "Bananas are berries, but strawberries aren't!", 
         "A day on Venus is longer than a year on Venus.", 
@@ -99,6 +99,17 @@ responses = {
         "Once upon a time, there was a curious learner who loved asking questions, and their AI friend always had fun answers. The end!", 
         "Long ago in a distant land, a wise old AI embarked on a quest to help all those who sought knowledge...", 
         "There was once a programmer who coded an AI so clever, it could tell stories that never ended!"
+    ],
+
+    "discipline": [
+        "Discipline is the bridge between goals and accomplishment.",
+        "Without discipline, even the greatest ideas can fall apart. Stay focused!",
+        "The key to success is consistency and discipline.",
+        "True discipline is doing what needs to be done, even when you don't feel like it.",
+        "Discipline is choosing between what you want now and what you want most.",
+        "The difference between success and failure is often discipline.",
+        "Discipline isn't about being perfect, it's about showing up and trying your best every day.",
+        "With discipline, you can turn dreams into reality."
     ]
 }
 
@@ -157,6 +168,10 @@ def get_response(user_input):
     # Asking for a story
     elif "story" in processed_input:
         return random.choice(responses["tell me a story"])
+    
+    # Asking about discipline
+    elif "discipline" in processed_input:
+        return random.choice(responses["discipline"])
     
     # Default response
     else:
