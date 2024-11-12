@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, jsonify
 import random
 import nltk
 from nltk.stem import WordNetLemmatizer
+import time
+
+tm = time.localtime()
+ts = f"The time is {tm.tm_hour}:{tm.tm_min}"
 
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -34,7 +38,7 @@ responses = {
     "thank you": [
         "You're welcome!", "No problem!", "Happy to help!", "Anytime!", 
         "Glad I could assist!", "You're very welcome!", "My pleasure!", 
-        "It's what I'm here for!","Awesome take care"
+        "It's what I'm here for!"
     ],
     "what is your name?": [
         "I'm an AI, but you can call me ChatBot!", "I go by ChatBot, nice to meet you!", 
@@ -62,8 +66,8 @@ responses = {
         "What did the router say when it was reset? 'I'm feeling reconnected!'"
     ],
 
-
     "fun fact": [
+        "A sheep was the first animal to be cloned :)",
         "Did you know octopuses have three hearts?", 
         "Bananas are berries, but strawberries aren't!", 
         "A day on Venus is longer than a year on Venus.", 
@@ -86,15 +90,26 @@ responses = {
         "I think I'd enjoy something classic, like spaghetti!", 
         "I don't eat, but I can suggest great recipes if you want!"
     ],
-    "what time is it?": [
-        "I can't check the time for you, but I'm sure it's the perfect time to be productive!", 
-        "Time is just an illusion... but I can help with your tasks anytime!", 
-        "I might not know the current time, but it’s always a good time for a chat!"
+    "what time is it?": [ts
+        # "I can't check the time for you, but I'm sure it's the perfect time to be productive!", 
+        # "Time is just an illusion... but I can help with your tasks anytime!", 
+        # "I might not know the current time, but it’s always a good time for a chat!"
     ],
     "tell me a story": [
         "Once upon a time, there was a curious learner who loved asking questions, and their AI friend always had fun answers. The end!", 
         "Long ago in a distant land, a wise old AI embarked on a quest to help all those who sought knowledge...", 
         "There was once a programmer who coded an AI so clever, it could tell stories that never ended!"
+    ],
+
+    "discipline": [
+        "Discipline is the bridge between goals and accomplishment.",
+        "Without discipline, even the greatest ideas can fall apart. Stay focused!",
+        "The key to success is consistency and discipline.",
+        "True discipline is doing what needs to be done, even when you don't feel like it.",
+        "Discipline is choosing between what you want now and what you want most.",
+        "The difference between success and failure is often discipline.",
+        "Discipline isn't about being perfect, it's about showing up and trying your best every day.",
+        "With discipline, you can turn dreams into reality."
     ]
 }
 
@@ -143,7 +158,7 @@ def get_response(user_input):
         return random.choice(responses["motivation"])
     
     # Asking about favorite food
-    elif "favorite" in processed_input and "food" in processed_input and "eat" in processed_input:
+    elif "favorite" in processed_input and "food" in processed_input:
         return random.choice(responses["favorite food?"])
     
     # Asking about time
@@ -153,6 +168,10 @@ def get_response(user_input):
     # Asking for a story
     elif "story" in processed_input:
         return random.choice(responses["tell me a story"])
+    
+    # Asking about discipline
+    elif "discipline" in processed_input:
+        return random.choice(responses["discipline"])
     
     # Default response
     else:
